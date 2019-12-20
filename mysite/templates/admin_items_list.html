@@ -1,0 +1,40 @@
+{% extends "admin.html" %}
+
+{% block items_list %}
+{% include 'admin_action_panel.html' %}
+<div class="col-12">
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Photo</th>
+        <th scope="col">Publish date</th>
+        <th scope="col">Show?</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+        <th scope="row">1</th>
+        <td><input class="form-check-input" type="checkbox" value=""></td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.photo }}</td>
+        <td>{{ item.pub_date}}</td>
+        <td>
+        {% if item.ispub %}
+            <i class="fas fa-eye" style = "color: green;"></i>
+        {% else %}
+            <i class="fas fa-eye-slash" style = "color: red;">
+        {% endif %}
+        </td>
+        </tr>
+        {% empty %}
+        <tr>
+        <td colspan="5" class = "text-center"> Please add <b>{{menu_title}}</b> </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock items_list %}

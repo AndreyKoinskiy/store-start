@@ -7,9 +7,18 @@ from .models import (
                         AttributeItemValue
 )
 # Register your models here.
+class ItemInline(admin.TabularInline):
+    model = Item
 
+    def get_extra(self, request, obj=None, **kwargs):
+        extra = 2
+        if obj:
+            return Category.objects.count()
+        return extra
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    inlines = [
+        ItemInline,
+    ]
 
 admin.site.register(Category, CategoryAdmin)
 

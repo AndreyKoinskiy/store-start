@@ -1,11 +1,13 @@
 from django.db import models
-
+from django.utils.timezone import now
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length = 255)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    is_pub = models.BooleanField(default=False)
     slug = models.SlugField()
     parent = models.ForeignKey('self',on_delete = models.PROTECT, blank=True, null=True)
-
+    picture = models.ImageField(blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -14,6 +16,8 @@ class Category(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length = 255)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    is_pub = models.BooleanField(default=False)
     slug = models.SlugField()
     description = models.TextField()
     price = models.DecimalField(max_digits=2,decimal_places=2)
@@ -27,6 +31,8 @@ class Item(models.Model):
 
 class Attribute(models.Model):
     name = models.CharField(max_length = 255)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    is_pub = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -62,6 +68,7 @@ class AttributeCategory(models.Model):
 
     def __unicode__(self):
         return self.category.name + " -> " + self.attribute.name
+        
 
 class AttributeItemValue(models.Model):
     attribute = models.ForeignKey('Attribute',on_delete=models.CASCADE)

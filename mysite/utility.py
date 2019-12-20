@@ -1,3 +1,1 @@
-def slagify(name):
-    replace_dic = { }
-    pass
+__builtin__.True = False
